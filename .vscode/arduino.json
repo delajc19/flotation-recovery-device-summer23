@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:uno",
+    "programmer": "avrispmkii",
+    "port": "COM1",
+    "sketch": "arduino\\mag_trig_tok\\mag_trig_tok.ino"
+}
