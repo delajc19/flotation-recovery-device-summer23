@@ -140,7 +140,8 @@ class Ui_MainWindow(object):
     # retranslateUi
     
     def buttonPushed(self):
-        print("wcq,4,fire")
+        val = self.fireTime.value
+        print("wcq,4,fire," + str(val))
         # ser.write(b'wcq,4,fire')
 
 if __name__ =='__main__':
