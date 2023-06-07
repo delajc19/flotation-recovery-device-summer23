@@ -58,29 +58,29 @@ void loop(){
     }
 
     //serial output for debugging recieved messages
-    for(int n = 0; n < index; n++){
-      m64.println(strings[n]);
-    }
-    
-    if(strncmp(strings[2],"on",2)==0){
-      magOn = true;
-    }
-
-    if(strncmp(strings[2],"off",3)==0){
-      magOn = false;
-    }
-
-    if(magOn){
-      digitalWrite(magPin, HIGH);
-      m64.println("MAGNET ON");
-    }
-    else{
-      digitalWrite(magPin, LOW);
-      m64.println("MAGNET OFF");
-    }
+//    for(int n = 0; n < index; n++){
+//      m64.println(strings[n]);
+//    }
+//    
+//    if(strncmp(strings[2],"on",2)==0){
+//      magOn = true;
+//    }
+//
+//    if(strncmp(strings[2],"off",3)==0){
+//      magOn = false;
+//    }
+//
+//    if(magOn){
+//      digitalWrite(magPin, HIGH);
+//      m64.println("MAGNET ON");
+//    }
+//    else{
+//      digitalWrite(magPin, LOW);
+//      m64.println("MAGNET OFF");
+//    }
 
     if(strncmp(strings[2],"fire",4)==0){
-      m64.println("MAGNET FIRED");
+//      m64.println("MAGNET FIRED");
       sec = atoi(strings[3]);
       Serial.println(sec);
       Serial.println(strings[3]);
@@ -93,6 +93,7 @@ void loop(){
       digitalWrite(magPin, HIGH);
       delay(sec*1000);
       digitalWrite(magPin, LOW);
+      m64.write("wcq,5,fired");
     }
     
   }

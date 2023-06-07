@@ -64,6 +64,8 @@ class Ui_MainWindow(object):
         self.fireTime.setObjectName(u"fireTime")
         self.fireTime.setGeometry(QRect(280, 240, 61, 61))
         self.fireTime.setAutoFillBackground(True)
+        self.fireTime.setMaximum(30)
+        self.fireTime.setMinimum(1)
         
         #Fire Time spin box label
         self.fireTimeLabel = QLabel(self.centralwidget)
@@ -174,6 +176,13 @@ class Ui_MainWindow(object):
         buf = 'wcq,4,fire,' + str(self.fireTime.value())
         print("fired")
         ser.write(buf.encode('ascii'))
+        self.statusIndicator.setText("Firing")
+    #     self.checkFired
+        
+    # def checkFired(self):
+    #     if ser.read(ser.in_waiting) == b'wcq,5,fired':
+    #         self.statusIndicator.setText("Fired")
+        
 
 if __name__ =='__main__':
     app = QApplication(sys.argv)
