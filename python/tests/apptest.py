@@ -1,12 +1,7 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'qtdesign-testNEMOMU.ui'
-##
-## Created by: Qt User Interface Compiler version 6.5.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+# Joseph de la Viesca
+# Luthy Lab
+# Wireless Floatation Device Trigger
+# UI for shore-side application
 
 from PyQt6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
@@ -19,10 +14,26 @@ from PyQt6.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpinBox,
     QTabWidget, QWidget)
 
+import serial
+import time
+
+ser = serial.Serial('COM5')
+
+ser.baudrate = 9600
+ser.bytesize = 8
+ser.parity = 'N'
+ser.stopbits = 1
+
+time.sleep(3)
+
+print(ser.name)
+ser.write(b'hello')
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
+        #Main Window
         MainWindow.resize(418, 317)
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -36,6 +47,8 @@ class Ui_MainWindow(object):
         MainWindow.setDockOptions(QMainWindow.DockOption.AllowTabbedDocks|QMainWindow.DockOption.AnimatedDocks)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
+        
+        #Fire button
         self.fireButton = QPushButton(self.centralwidget)
         self.fireButton.setObjectName(u"fireButton")
         self.fireButton.setGeometry(QRect(10, 200, 181, 101))
@@ -43,80 +56,96 @@ class Ui_MainWindow(object):
         self.fireButton.setStyleSheet(u"font: 600 40pt \"Bahnschrift\";")
         self.fireButton.setCheckable(True)
         self.fireButton.clicked.connect(self.buttonPushed)
+        
+        #Fire time spin box
         self.fireTime = QSpinBox(self.centralwidget)
         self.fireTime.setObjectName(u"fireTime")
         self.fireTime.setGeometry(QRect(280, 240, 61, 61))
         self.fireTime.setAutoFillBackground(True)
+        
+        #Fire Time spin box label
+        self.fireTimeLabel = QLabel(self.centralwidget)
+        self.fireTimeLabel.setObjectName(u"fireTimeLabel")
+        self.fireTimeLabel.setGeometry(QRect(220, 200, 181, 41))
+        self.fireTimeLabel.setAutoFillBackground(False)
+        self.fireTimeLabel.setStyleSheet(u"font: 600 24pt \"Bahnschrift\";")
+        MainWindow.setCentralWidget(self.centralwidget)
+        
+        #Status Frame
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
         self.frame.setGeometry(QRect(10, 10, 401, 181))
         self.frame.setAutoFillBackground(True)
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
+        
+        #Initialize grid layout for UI components
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.label_3 = QLabel(self.frame)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setAutoFillBackground(True)
-        self.label_3.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        
+        #Status section label
+        self.statusLabel = QLabel(self.frame)
+        self.statusLabel.setObjectName(u"statusLabel")
+        self.statusLabel.setAutoFillBackground(True)
+        self.statusLabel.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.statusLabel, 0, 0, 1, 1)
+        
+        #System status display
+        self.statusIndicator = QLabel(self.frame)
+        self.statusIndicator.setObjectName(u"statusIndicator")
+        self.statusIndicator.setAutoFillBackground(True)
+        self.statusIndicator.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.label_5 = QLabel(self.frame)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setAutoFillBackground(True)
-        self.label_5.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        self.gridLayout.addWidget(self.statusIndicator, 0, 1, 1, 2, Qt.AlignmentFlag.AlignHCenter)
+        
+        #Depth section label
+        self.depthLabel = QLabel(self.frame)
+        self.depthLabel.setObjectName(u"depthLabel")
+        self.depthLabel.setAutoFillBackground(True)
+        self.depthLabel.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        
+        self.gridLayout.addWidget(self.depthLabel, 1, 0, 1, 1)
+        
+        #Depth value
+        self.depthVal = QLabel(self.frame)
+        self.depthVal.setObjectName(u"depthVal")
+        self.depthVal.setAutoFillBackground(True)
+        self.depthVal.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.label_5, 2, 2, 1, 1)
+        self.gridLayout.addWidget(self.depthVal, 1, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
+        
+        #Unit label for depth
+        self.depthUnit = QLabel(self.frame)
+        self.depthUnit.setObjectName(u"depthUnit")
+        self.depthUnit.setAutoFillBackground(True)
+        self.depthUnit.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.label_6 = QLabel(self.frame)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setAutoFillBackground(True)
-        self.label_6.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        self.gridLayout.addWidget(self.depthUnit, 1, 2, 1, 1)
+        
+        #Distance section label
+        self.distLabel = QLabel(self.frame)
+        self.distLabel.setObjectName(u"distLabel")
+        self.distLabel.setAutoFillBackground(True)
+        self.distLabel.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.label_6, 1, 2, 1, 1)
+        self.gridLayout.addWidget(self.distLabel, 2, 0, 1, 1)
+        
+        #Distance value
+        self.distVal = QLabel(self.frame)
+        self.distVal.setObjectName(u"distVal")
+        self.distVal.setAutoFillBackground(True)
+        self.distVal.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.label_2 = QLabel(self.frame)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setAutoFillBackground(True)
-        self.label_2.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        self.gridLayout.addWidget(self.distVal, 2, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
+        
+        #Unit label for distance
+        self.distUnit = QLabel(self.frame)
+        self.distUnit.setObjectName(u"distUnit")
+        self.distUnit.setAutoFillBackground(True)
+        self.distUnit.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1)
-
-        self.label_4 = QLabel(self.frame)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setAutoFillBackground(True)
-        self.label_4.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
-
-        self.gridLayout.addWidget(self.label_4, 2, 0, 1, 1)
-
-        self.label_8 = QLabel(self.frame)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setAutoFillBackground(True)
-        self.label_8.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
-
-        self.gridLayout.addWidget(self.label_8, 1, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-        self.label_7 = QLabel(self.frame)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setAutoFillBackground(True)
-        self.label_7.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
-
-        self.gridLayout.addWidget(self.label_7, 0, 1, 1, 2, Qt.AlignmentFlag.AlignHCenter)
-
-        self.label_9 = QLabel(self.frame)
-        self.label_9.setObjectName(u"label_9")
-        self.label_9.setAutoFillBackground(True)
-        self.label_9.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
-
-        self.gridLayout.addWidget(self.label_9, 2, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
-
-        self.label = QLabel(self.centralwidget)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(220, 200, 181, 41))
-        self.label.setAutoFillBackground(False)
-        self.label.setStyleSheet(u"font: 600 24pt \"Bahnschrift\";")
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.gridLayout.addWidget(self.distUnit, 2, 2, 1, 1)
 
         self.retranslateUi(MainWindow)
 
@@ -128,21 +157,21 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Float Trigger", None))
         self.fireButton.setText(QCoreApplication.translate("MainWindow", u"FIRE", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Depth:", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"ft", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"ft", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Distance:", None))
-        self.label_8.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Ready!", None))
-        self.label_9.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Fire Time (s)", None))
+        self.depthLabel.setText(QCoreApplication.translate("MainWindow", u"Depth:", None))
+        self.distUnit.setText(QCoreApplication.translate("MainWindow", u"ft", None))
+        self.depthUnit.setText(QCoreApplication.translate("MainWindow", u"ft", None))
+        self.statusLabel.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
+        self.distLabel.setText(QCoreApplication.translate("MainWindow", u"Distance:", None))
+        self.depthVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.statusIndicator.setText(QCoreApplication.translate("MainWindow", u"Ready!", None))
+        self.distVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        self.fireTimeLabel.setText(QCoreApplication.translate("MainWindow", u"Fire Time (s)", None))
     # retranslateUi
     
     def buttonPushed(self):
-        val = self.fireTime.value
-        print("wcq,4,fire," + str(val))
-        # ser.write(b'wcq,4,fire')
+        val = self.fireTime.value()
+        print("wcq,4,fire;" + str(val))
+        ser.write(b'wcq,4,fire')
 
 if __name__ =='__main__':
     import sys
