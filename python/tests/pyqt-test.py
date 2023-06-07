@@ -7,7 +7,7 @@ import sys
 import serial
 import time
 
-ser = serial.Serial('COM3')
+ser = serial.Serial('COM5')
 
 ser.baudrate = 9600
 ser.bytesize = 8

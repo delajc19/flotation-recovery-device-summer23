@@ -1,7 +1,7 @@
-#include <SoftwareSerial.h>
+#include <AltSoftSerial.h>
 
-#define rxPin 5
-#define txPin 6
+//#define rxPin 9
+//#define txPin 8
 #define magPin 12
 #define MAXMSG 30
 
@@ -9,11 +9,13 @@ const int baud = 9600;
 
 bool magOn = false;
 
-SoftwareSerial m64 = SoftwareSerial(rxPin, txPin);
+AltSoftSerial m64;
 
 char msg[MAXMSG];
 char *strings[10];
 char *ptr = NULL;
+
+int sec = 1;
 
 void setup(){
 
@@ -21,12 +23,13 @@ void setup(){
   pinMode(magPin, OUTPUT);
   
   //define pin modes for TX and RX
-  pinMode(rxPin, INPUT);
-  pinMode(txPin, OUTPUT);
+  //irrelevant commands for altsoftserial
+//  pinMode(rxPin, INPUT);
+//  pinMode(txPin, OUTPUT);
 
   //begin serial
   m64.begin(baud);
-//  Serial.begin(baud);
+  Serial.begin(baud);
 
   m64.println("Hello there!");
 
@@ -35,7 +38,7 @@ void setup(){
 void loop(){
   int i = 0;
   while(m64.available() > 0 && i < MAXMSG-1){
-    delay(2);
+    delay(8);
     char c = m64.read();
     msg[i] = c;
     i++;
@@ -78,8 +81,17 @@ void loop(){
 
     if(strncmp(strings[2],"fire",4)==0){
       m64.println("MAGNET FIRED");
+      sec = atoi(strings[3]);
+      Serial.println(sec);
+      Serial.println(strings[3]);
+      if(sec < 1){
+        sec = 1;
+      }
+      if(sec > 30){
+        sec = 30;
+      }
       digitalWrite(magPin, HIGH);
-      delay(2000);
+      delay(sec*1000);
       digitalWrite(magPin, LOW);
     }
     

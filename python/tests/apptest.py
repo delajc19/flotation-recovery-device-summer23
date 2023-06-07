@@ -14,6 +14,8 @@ from PyQt6.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
     QMainWindow, QPushButton, QSizePolicy, QSpinBox,
     QTabWidget, QWidget)
 
+import sys
+
 import serial
 import time
 
@@ -169,12 +171,11 @@ class Ui_MainWindow(object):
     # retranslateUi
     
     def buttonPushed(self):
-        val = self.fireTime.value()
-        print("wcq,4,fire;" + str(val))
-        ser.write(b'wcq,4,fire')
+        buf = 'wcq,4,fire,' + str(self.fireTime.value())
+        print("fired")
+        ser.write(buf.encode('ascii'))
 
 if __name__ =='__main__':
-    import sys
     app = QApplication(sys.argv)
     app.setStyle("fusion")
     window = QMainWindow()
