@@ -28,6 +28,8 @@ ser.stopbits = 1
 
 time.sleep(3)
 
+isFiring = False
+
 print(ser.name)
 ser.write(b'hello')
 
@@ -56,7 +58,7 @@ class Ui_MainWindow(object):
         self.fireButton.setGeometry(QRect(10, 200, 181, 101))
         self.fireButton.setAutoFillBackground(True)
         self.fireButton.setStyleSheet(u"font: 600 40pt \"Bahnschrift\";")
-        self.fireButton.setCheckable(True)
+        self.fireButton.setCheckable(False)
         self.fireButton.clicked.connect(self.buttonPushed)
         
         #Fire time spin box
@@ -152,7 +154,9 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.distUnit, 2, 2, 1, 1)
 
         self.retranslateUi(MainWindow)
-
+        
+        
+        
         QMetaObject.connectSlotsByName(MainWindow)
         
         
@@ -167,21 +171,26 @@ class Ui_MainWindow(object):
         self.statusLabel.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
         self.distLabel.setText(QCoreApplication.translate("MainWindow", u"Distance:", None))
         self.depthVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
-        self.statusIndicator.setText(QCoreApplication.translate("MainWindow", u"Ready!", None))
+        self.statusIndicator.setText(QCoreApplication.translate("MainWindow", u"Not Fired", None))
         self.distVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.fireTimeLabel.setText(QCoreApplication.translate("MainWindow", u"Fire Time (s)", None))
     # retranslateUi
     
     def buttonPushed(self):
-        buf = 'wcq,4,fire,' + str(self.fireTime.value())
-        print("fired")
-        ser.write(buf.encode('ascii'))
+        # self.fireButton.isEnabled(False)
         self.statusIndicator.setText("Firing")
-    #     self.checkFired
+        buf = 'wcq,4,fire,' + str(self.fireTime.value())
+        ser.write(buf.encode('ascii'))
+        print(self.statusIndicator.text())
+        self.checkFired()
+        # self.fireButton.isEnabled(True)
         
-    # def checkFired(self):
-    #     if ser.read(ser.in_waiting) == b'wcq,5,fired':
-    #         self.statusIndicator.setText("Fired")
+    def checkFired(self):
+        while "Firing" in self.statusIndicator.text():
+            msg = str(ser.read(ser.in_waiting))
+            print(msg)
+            if 'wcq,5,fired' in msg:
+                self.statusIndicator.setText("Fired")
         
 
 if __name__ =='__main__':
