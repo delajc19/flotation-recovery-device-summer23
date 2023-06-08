@@ -177,13 +177,13 @@ class Ui_MainWindow(object):
     # retranslateUi
     
     def buttonPushed(self):
-        # self.fireButton.isEnabled(False)
+        self.fireButton.setEnabled(False)
         self.statusIndicator.setText("Firing")
         buf = 'wcq,4,fire,' + str(self.fireTime.value())
         ser.write(buf.encode('ascii'))
         print(self.statusIndicator.text())
         self.checkFired()
-        # self.fireButton.isEnabled(True)
+        self.fireButton.setEnabled(True)
         
     def checkFired(self):
         while "Firing" in self.statusIndicator.text():
