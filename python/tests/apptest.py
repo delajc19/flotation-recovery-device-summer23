@@ -129,29 +129,29 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.depthUnit, 1, 2, 1, 1)
         
-        #Distance section label
-        self.distLabel = QLabel(self.frame)
-        self.distLabel.setObjectName(u"distLabel")
-        self.distLabel.setAutoFillBackground(True)
-        self.distLabel.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        # #Distance section label
+        # self.distLabel = QLabel(self.frame)
+        # self.distLabel.setObjectName(u"distLabel")
+        # self.distLabel.setAutoFillBackground(True)
+        # self.distLabel.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.distLabel, 2, 0, 1, 1)
+        # self.gridLayout.addWidget(self.distLabel, 2, 0, 1, 1)
         
-        #Distance value
-        self.distVal = QLabel(self.frame)
-        self.distVal.setObjectName(u"distVal")
-        self.distVal.setAutoFillBackground(True)
-        self.distVal.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        # #Distance value
+        # self.distVal = QLabel(self.frame)
+        # self.distVal.setObjectName(u"distVal")
+        # self.distVal.setAutoFillBackground(True)
+        # self.distVal.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.distVal, 2, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
+        # self.gridLayout.addWidget(self.distVal, 2, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
         
-        #Unit label for distance
-        self.distUnit = QLabel(self.frame)
-        self.distUnit.setObjectName(u"distUnit")
-        self.distUnit.setAutoFillBackground(True)
-        self.distUnit.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
+        # #Unit label for distance
+        # self.distUnit = QLabel(self.frame)
+        # self.distUnit.setObjectName(u"distUnit")
+        # self.distUnit.setAutoFillBackground(True)
+        # self.distUnit.setStyleSheet(u"font: 600 20pt \"Bahnschrift\";")
 
-        self.gridLayout.addWidget(self.distUnit, 2, 2, 1, 1)
+        # self.gridLayout.addWidget(self.distUnit, 2, 2, 1, 1)
 
         self.retranslateUi(MainWindow)
         
@@ -166,13 +166,13 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Float Trigger", None))
         self.fireButton.setText(QCoreApplication.translate("MainWindow", u"FIRE", None))
         self.depthLabel.setText(QCoreApplication.translate("MainWindow", u"Depth:", None))
-        self.distUnit.setText(QCoreApplication.translate("MainWindow", u"ft", None))
+        # self.distUnit.setText(QCoreApplication.translate("MainWindow", u"ft", None))
         self.depthUnit.setText(QCoreApplication.translate("MainWindow", u"ft", None))
         self.statusLabel.setText(QCoreApplication.translate("MainWindow", u"Status:", None))
-        self.distLabel.setText(QCoreApplication.translate("MainWindow", u"Distance:", None))
+        # self.distLabel.setText(QCoreApplication.translate("MainWindow", u"Distance:", None))
         self.depthVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.statusIndicator.setText(QCoreApplication.translate("MainWindow", u"Not Fired", None))
-        self.distVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
+        # self.distVal.setText(QCoreApplication.translate("MainWindow", u"0", None))
         self.fireTimeLabel.setText(QCoreApplication.translate("MainWindow", u"Fire Time (s)", None))
     # retranslateUi
     

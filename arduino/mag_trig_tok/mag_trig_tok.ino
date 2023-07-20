@@ -44,6 +44,7 @@ void loop(){
     i++;
   }
 
+  //Pad the rest of the message with null characters
   for(i=i;i<MAXMSG;i++){
     msg[i] = '\0';
   }
